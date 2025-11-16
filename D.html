@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dinas Pariwisata Kota Medan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #fffff;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(90deg, #003366, #0055aa);
+      color: white;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      position: relative;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+
+    header .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    header img {
+      height: 45px;
+      margin-right: 10px;
+    }
+
+    header h1 {
+      font-size: 1.3em;
+      margin: 0;
+      color: white;
+      font-weight: 600;
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      transition: all 0.4s ease;
+      align-items: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 15px;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffcc00;
+    }
+
+    /* Dropdown */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropbtn {
+      background: #fcecf4;
+      color: #00000;
+      padding: 8px 16px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      border-radius: 5px;
+      font-size: 15px;
+    }
+
+    .dropbtn::after {
+      content: "▼";
+      font-size: 12px;
+      margin-left: 8px;
+      color: #333;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background: white;
+      min-width: 160px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+      border-radius: 8px;
+      z-index: 999;
+    }
+
+    .dropdown-content a {
+      color: #333;
+      padding: 10px 15px;
+      display: block;
+      text-decoration: none;
+      font-weight: normal;
+    }
+
+    .dropdown-content a:hover {
+      background: #f2f2f2;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    /* Hamburger Button */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      z-index: 1100;
+    }
+
+    .menu-toggle span {
+      height: 3px;
+      width: 28px;
+      background: white;
+      margin: 4px 0;
+      border-radius: 2px;
+      transition: 0.4s;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 5px);
+    }
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -5px);
+    }
+
+    /* Banner */
+    .banner {
+      position: relative;
+      text-align: center;
+      color: white;
+    }
+
+    .banner img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      filter: brightness(65%);
+    }
+
+    .banner h2 {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1em;
+      font-weight: 700;
+      padding: 10px 18px;
+      border-radius: 10px;
+      color: #ffffff; /* Putih */
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.8); /* Bayangan hitam */
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -40%); }
+      to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+
+    /* Event Section */
+    section {
+      padding: 40px 20px;
+      background: white;
+      flex: 1;
+    }
+
+    section h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 2em;
+      color: #003366;
+      font-weight: 600;
+    }
+
+    .event-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .event-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: white;
+    }
+
+    .event-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+    }
+
+    .event-card img {
+      width: 100%;
+      display: block;
+      border-radius: 15px 15px 0 0;
+      transition: transform 0.4s ease;
+    }
+
+    .event-card:hover img {
+      transform: scale(1.08);
+    }
+
+    .event-overlay {
+      padding: 15px;
+      text-align: center;
+      background: white;
+      color: #ffffff;
+      font-size: 1.2em;
+      font-weight: bold;
+      border-radius: 0 0 15px 15px;
+    }
+
+    footer {
+      background: #003366;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: auto;
+      box-shadow: 0 -4px 8px rgba(0,0,0,0.2);
+    }
+
+    /* Responsif */
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: #003366;
+        padding: 15px 0;
+        position: absolute;
+        top: 65px;
+        left: 0;
+        animation: slideDown 0.4s ease;
+      }
+
+      @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      nav a, .dropbtn {
+        margin: 12px auto;
+        text-align: center;
+        font-size: 1.1em;
+        display: block;
+        width: 90%;
+      }
+
+      nav.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .dropdown-content {
+        position: static;
+        box-shadow: none;
+        background: #002244;
+      }
+      .dropdown-content a {
+        color: white;
+      }
+      .dropdown-content a:hover {
+        background: #001122;
+      }
+      .destinasi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 kolom */
+  gap: 20px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.destinasi-grid .card {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background: #fff;
+  text-align: center;
+}
+
+.destinasi-grid .card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.destinasi-grid .card div {
+  padding: 10px;
+  background: rgba(255,255,255,0.9);
+  font-weight: 600;
+}
+
+
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header + Nav -->
+  <header>
+    <div class="logo">
+      <img src="https://i.ibb.co.com/fVnCXwBv/IMG-20250822-WA0066.jpg" alt=" "/>
+      <h1>Dinas Pariwisata</h1>
+    </div>
+
+    <!-- Tombol Menu (garis 3) -->
+    <div class="menu-toggle" id="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+<nav id="nav-menu">
+      <a href="IndexH.html">Home</a>
+
+      <!-- Dropdown Tentang --><div class="dropdown">
+        <button class="dropbtn">Tentang</button>
+        <div class="dropdown-content">
+          <a href="F.html">Profil</a>
+          <a href="VM.html">Visi Misi</a>
+          <a href="FAQ.html">Faq</a>
+        </div>
+      </div>
+      
+      <div class="dropdown">
+        <button class="dropbtn">Halaman</button>
+        <div class="dropdown-content">
+          <a href="E.html">Event</a>
+          <a href="D.html">Destinasi pilihan</a>
+          <a href="G.html">Galery</a>
+         
+        </div>
+      </div>
+
+      <a href="FA.html">Fasilitas</a>
+      
+     <div class="dropdown">
+        <button class="dropbtn">promosi</button>
+        <div class="dropdown-content">
+          <a href="HOT.html">Hotel</a>
+          <a href="CAF.html">cafe</a>
+         
+        </div>
+      </div>
+   
+      <a href="BER.html">Berita</a>
+      <a href="KONTAK.html">Kontak</a>
+    </nav>
+     
+  </header>
+
+  <!-- Banner -->
+  <div class="banner">
+    <img src="https://i.ibb.co.com/8n71KHLy/IMG-20250822-WA0062.jpg" alt="banner"/>
+    <h2>Destinasi Pilihan</h2>
+  </div>
+
+  
+<section>
+  <h2></h2>
+  <div class="destinasi-grid">
+
+    <div class="card">
+     <a href="https://ibb.co.com/d4kjVwvg"><img src="https://i.ibb.co.com/ZzcGFprm/Screenshot-2025-08-26-11-53-24-84.png" alt="Screenshot-2025-08-26-11-53-24-84" border="0"></a>
+      <div>Istana Maimun</div>
+    </div>
+
+    <div class="card">
+      <img src="https://i.ibb.co.com/hRHdfpgT/Screenshot-2025-08-26-11-43-02-13.png" alt="Masjid Raya">
+      <div>Masjid Raya</div>
+    </div>
+
+    <div class="card">
+     <a href="https://imgbb.com/"><img src="https://i.ibb.co.com/1YDMDFf2/Screenshot-2025-08-26-12-06-52-48.png" alt="Screenshot-2025-08-26-12-06-52-48" border="0"></a>
+      <div>Museum</div>
+    </div>
+
+    <div class="card">
+      <a href="https://imgbb.com/"><img src="https://i.ibb.co.com/TBCc3cMc/Screenshot-2025-08-26-11-56-27-63.png" alt="Screenshot-2025-08-26-11-56-27-63" border="0"></a>
+         <div>Kawah Ijen</div>
+    </div>
+
+    <div class="card">
+      <a href="https://imgbb.com/"><img src="https://i.ibb.co.com/9kxbHZgb/Screenshot-2025-08-26-11-57-23-97.png" alt="Screenshot-2025-08-26-11-57-23-97" border="0"></a>
+      <div>Pantai Kelingking</div>
+    </div>
+
+    <div class="card">
+      <a href="https://imgbb.com/"><img src="https://i.ibb.co.com/jCQVfGK/Screenshot-2025-08-26-11-58-41-40.png" alt="Screenshot-2025-08-26-11-58-41-40" border="0"></a>
+    <div>Pantai Merah</div>
+    </div>
+
+    <div class="card">
+      <a href="https://imgbb.com/"><img src="https://i.ibb.co.com/Ld6QwLCN/Screenshot-2025-08-26-11-59-59-48.png" alt="Screenshot-2025-08-26-11-59-59-48" border="0"></a>
+         <div>Pulau Komodo</div>
+    </div>
+
+    <div class="card">
+      <a href="https://imgbb.com/"><img src="https://i.ibb.co.com/d4Njp45G/Screenshot-2025-08-26-12-00-26-12.png" alt="Screenshot-2025-08-26-12-00-26-12" border="0"></a>
+      <div>Raja Ampat</div>
+    </div>
+
+    <div class="card">
+      <a href="https://imgbb.com/"><img src="https://i.ibb.co.com/1G1xY2p9/Screenshot-2025-08-26-12-01-07-48.png" alt="Screenshot-2025-08-26-12-01-07-48" border="0"></a>
+         <div>Danau Toba</div>
+    </div>
+
+  </div>
+</section>
+
+ 
+ 
+
+
+  <section style="background:#fff; padding:50px 20px; text-align:center;">
+    <h2 style="font-size:2em; margin-bottom:10px;">Buletin</h2>
+    <p>Terima Kasih Telah Mengunjungi Laman Dinas Pariwisata Kota Medan</p>
+    
+    <form style="margin:20px auto; max-width:500px; display:flex; border:2px solid #000; border-radius:30px; overflow:hidden;">
+      <input type="email" placeholder="Alamat Email" required style="flex:1; padding:12px 20px; border:none; outline:none; font-size:1em;">
+      <button type="submit" style="background:#eee; padding:0 20px; border:none; cursor:pointer;">➤</button>
+    </form>
+
+    <div style="margin-top:40px; text-align:left; max-width:600px; margin:auto;">
+      <h3 style="margin-bottom:15px; border-bottom:2px solid #000; display:inline-block;">POSTINGAN TERBARU</h3>
+      <ul style="list-style:disc; padding-left:20px;">
+        <li><a href="#" style="color:#000; font-weight:500; text-decoration:underline;">Pesta Rakyat pada Karnaval Medan Penuh Warna 2025</a></li>
+        <li><a href="#" style="color:#000; font-weight:500; text-decoration:underline;">Pawai Night Carnival pada Event Medan Warna-warni Karnaval 2025</a></li>
+        <li><a href="#" style="color:#000; font-weight:500; text-decoration:underline;">Pesta Seni Medan</a></li>
+        <li><a href="#" style="color:#000; font-weight:500; text-decoration:underline;">Dirgahayu Kota Medan ke 435</a></li>
+      </ul>
+    </div>
+
+    <div style="margin-top:40px; text-align:left; max-width:600px; margin:auto;">
+      <h3 style="margin-bottom:15px; border-bottom:2px solid #000; display:inline-block;">Alamat</h3>
+      <p>Jl. Prof HM Yamin No.40, Gg. Buntu, Kec. Medan Tim., Kota Medan, Sumatera Utara 20232</p>
+      <p>📧 Pariwisata@Medan.go.id</p>
+      <p>📞 +6281282012063</p>
+
+      <div class="social-icons" style="margin-top:15px; text-align:center;">
+        <a href="https://ibb.co.com/GQNBjbhy"><img src="https://i.ibb.co.com/tpFk5Wdg/Screenshot-2025-08-28-09-39-13-91.png" alt="Facebook" style="height:35px; margin:0 5px;"></a>
+        <a href="https://imgbb.com/"><img src="https://i.ibb.co.com/twK0Z5W3/Screenshot-2025-08-28-09-40-14-33.png" alt="YouTube" style="height:35px; margin:0 5px;"></a>
+        <a href="https://ibb.co.com/qLMnRFKR"><img src="https://i.ibb.co.com/spvPFJnF/Screenshot-2025-08-28-09-39-43-95.png" alt="Instagram" style="height:35px; margin:0 5px;"></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Dinas Pariwisata Kota Medan. All Rights Reserved.
+  </footer>
+
+  <!-- Script Menu -->
+  <script>
+    const menuToggle = document.getElementById("menu-toggle");
+    const navMenu = document.getElementById("nav-menu");
+
+    menuToggle.addEventListener("click", () => {
+      navMenu.classList.toggle("active");
+      menuToggle.classList.toggle("active");
+    });
+  </script>
+
+</body>
+</html>

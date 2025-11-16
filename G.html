@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dinas Pariwisata Kota Medan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #ffffff;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(90deg, #003366, #003366);
+      color: white;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      position: relative;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+
+    header .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    header img {
+      height: 45px;
+      margin-right: 10px;
+    }
+
+    header h1 {
+      font-size: 1.3em;
+      margin: 0;
+      color: white;
+      font-weight: 600;
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      transition: all 0.4s ease;
+      align-items: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 15px;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffcc00;
+    }
+
+    /* Dropdown */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropbtn {
+      background: #003366;
+      color: #ffffff;
+      padding: 8px 16px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      border-radius: 5px;
+      font-size: 15px;
+    }
+
+    .dropbtn::after {
+      content: "▼";
+      font-size: 12px;
+      margin-left: 8px;
+      color: #ffffff;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background: white;
+      min-width: 160px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+      border-radius: 8px;
+      z-index: 999;
+    }
+
+    .dropdown-content a {
+      color: #333;
+      padding: 10px 15px;
+      display: block;
+      text-decoration: none;
+      font-weight: normal;
+    }
+
+    .dropdown-content a:hover {
+      background: #f2f2f2;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    /* Hamburger Button */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      z-index: 1100;
+    }
+
+    .menu-toggle span {
+      height: 3px;
+      width: 28px;
+      background: white;
+      margin: 4px 0;
+      border-radius: 2px;
+      transition: 0.4s;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 5px);
+    }
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -5px);
+    }
+
+    /* Banner */
+    .banner {
+      position: relative;
+      text-align: center;
+      color: white;
+    }
+
+    .banner img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      filter: brightness(65%);
+    }
+
+    .banner h2 {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1em;
+      font-weight: 700;
+      padding: 10px 18px;
+      border-radius: 10px;
+      color: #ffffff; /* Putih */
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.8); /* Bayangan hitam */
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -40%); }
+      to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+
+    /* Event Section */
+    section {
+      padding: 40px 20px;
+      background: white;
+      flex: 1;
+    }
+
+    section h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 2em;
+      color: #003366;
+      font-weight: 600;
+    }
+
+    .event-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .event-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: white;
+    }
+
+    .event-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+    }
+
+    .event-card img {
+      width: 100%;
+      display: block;
+      border-radius: 15px 15px 0 0;
+      transition: transform 0.4s ease;
+    }
+
+    .event-card:hover img {
+      transform: scale(1.08);
+    }
+
+    .event-overlay {
+      padding: 15px;
+      text-align: center;
+      background: white;
+      color: #333;
+      font-size: 1.2em;
+      font-weight: bold;
+      border-radius: 0 0 15px 15px;
+    }
+
+    /* Destinasi Section */
+    .destinasi-section {
+      padding: 40px 20px;
+    }
+
+    .destinasi-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .destinasi-nav {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .destinasi-nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #003366;
+      font-weight: 600;
+      padding: 8px 15px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .destinasi-nav a:hover, .destinasi-nav a.active {
+      background-color: #003366;
+      color: white;
+    }
+
+    .destinasi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .destinasi-grid .card {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      background: #fff;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .destinasi-grid .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .destinasi-grid .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .destinasi-grid .card div {
+      padding: 15px;
+      background: rgba(255,255,255,0.9);
+      font-weight: 600;
+    }
+
+    /* Video Section */
+    .video-grid {
+      display: none;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .video-grid.active {
+      display: grid;
+    }
+
+    .video-card {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      background: #fff;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .video-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .video-card video {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .video-card div {
+      padding: 15px;
+      background: rgba(255,255,255,0.9);
+      font-weight: 600;
+    }
+
+    .video-controls {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .video-controls button {
+      background: #003366;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .video-controls button:hover {
+      background: #0055aa;
+    }
+
+    /* Berita Section */
+    .berita-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card-berita {
+      width: 360px;
+      background: #000;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      color: white;
+    }
+
+    .card-berita img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .info-berita {
+      padding: 15px;
+    }
+
+    .info-berita h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .tanggal {
+      font-size: 14px;
+      color: #ccc;
+      margin-bottom: 15px;
+    }
+
+    .sosmed {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .sosmed img {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      transition: transform 0.3s;
+    }
+
+    .sosmed img:hover {
+      transform: scale(1.1);
+    }
+
+    footer {
+      background: #003366;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: auto;
+      box-shadow: 0 -4px 8px rgba(0,0,0,0.2);
+    }
+
+    /* Responsif */
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: #003366;
+        padding: 15px 0;
+        position: absolute;
+        top: 65px;
+        left: 0;
+        animation: slideDown 0.4s ease;
+      }
+
+      @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      nav a, .dropbtn {
+        margin: 12px auto;
+        text-align: center;
+        font-size: 1.1em;
+        display: block;
+        width: 90%;
+      }
+
+      nav.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .dropdown-content {
+        position: static;
+        box-shadow: none;
+        background: #002244;
+      }
+      .dropdown-content a {
+        color: white;
+      }
+      .dropdown-content a:hover {
+        background: #001122;
+      }
+    }
+  
+ /*bagian pencarian upload dan download */
+  {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: "Poppins", sans-serif;
+    background-color: #f8fafc;
+    margin: 0;
+    padding: 0;
+    color: #222;
+  }
+
+  .destinasi-section {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 2rem;
+    color: #2e7d32;
+    margin-bottom: 1rem;
+  }
+
+  /* TAB */
+  .destinasi-nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    color: #0000000;
+    background: #e0e0e0;
+    transition: all 0.3s ease;
+  }
+
+  .tab-btn.active {
+    background: #43a047;
+    color: white;
+    box-shadow: 0 4px 10px rgba(67, 160, 71, 0.3);
+  }
+
+  .tab-btn:hover {
+    background: #66bb6a;
+    color: white;
+  }
+
+  /* TOOLBAR */
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    background: white;
+    padding: 10px 15px;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+
+  .search-container {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 230px;
+    background: #f1f3f4;
+    border-radius: 25px;
+    overflow: hidden;
+  }
+
+  #searchInput {
+    border: none;
+    padding: 10px 15px;
+    outline: none;
+    width: 100%;
+    background: transparent;
+    font-size: 1rem;
+  }
+
+  .search-btn {
+    border: none;
+    background: #43a047;
+    color: white;
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .search-btn:hover {
+    background: #2e7d32;
+  }
+
+  .toolbar-buttons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .toolbar-buttons button {
+    border: none;
+    padding: 10px 18px;
+    border-radius: 25px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .upload-btn {
+    background: #000000;
+  }
+
+  .upload-btn:hover {
+    background: #2e7d32;
+  }
+
+  .download-btn {
+    background: #0000000;
+  }
+
+  .download-btn:hover {
+    background: #1565c0;
+  }
+
+  /* GRID */
+  .destinasi-grid,
+  .video-grid {
+    display: none;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+
+  .destinasi-grid.active,
+  .video-grid.active {
+    display: grid;
+  }
+
+  .card,
+  .video-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .card:hover,
+  .video-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  }
+
+  .card img,
+  .video-card video {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+
+  .card div,
+  .video-card div {
+    padding: 12px;
+    font-weight: 600;
+    color: #2e7d32;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    h2 {
+      font-size: 1.6rem;
+    }
+
+    .toolbar {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .toolbar-buttons {
+      justify-content: center;
+      width: 100%;
+    }
+
+    .search-container {
+      width: 100%;
+    }
+
+    .card img,
+    .video-card video {
+      height: 150px;
+    }
+  }
+
+    /* ====== SECTION STYLE ====== */
+.buletin-section {
+  background: #ffffff;
+  color: #222;
+  text-align: center;
+  padding: 70px 40px;
+  font-family: "Poppins", sans-serif;
+  border-top: 4px solid #a7a7a7;
+}
+
+.buletin-section h2 {
+  font-size: 2rem;
+  color: #003366;
+  margin-bottom: 10px;
+}
+
+.buletin-section p {
+  font-size: 1rem;
+  margin-bottom: 30px;
+  color: #000000;
+}
+
+/* ====== FORM ====== */
+.buletin-form {
+  margin: 0 auto 50px auto;
+  max-width: 500px;
+  display: flex;
+  border: 2px solid #000000;
+  border-radius: 40px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.buletin-form input {
+  flex: 1;
+  padding: 14px 20px;
+  border: none;
+  outline: none;
+  font-size: 1em;
+  background: #f9f9f9;
+}
+
+.buletin-form button {
+  background: #003366;
+  color: white;
+  padding: 0 25px;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  transition: background 0.3s ease;
+}
+
+.buletin-form button:hover {
+  background: #0055aa;
+}
+
+/* ====== CONTENT AREA ====== */
+.buletin-content {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 60px;
+  max-width: 1000px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.buletin-column {
+  flex: 1 1 300px;
+  text-align: left;
+}
+
+.buletin-column h3 {
+  font-size: 1.2rem;
+  color: #003366;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #003366;
+  display: inline-block;
+  padding-bottom: 4px;
+}
+
+.buletin-column ul {
+  list-style: disc;
+  padding-left: 20px;
+}
+
+.buletin-column li {
+  margin-bottom: 10px;
+}
+
+.buletin-column a {
+  color: #000000;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.buletin-column a:hover {
+  color: #0077ff;
+  text-decoration: underline;
+}
+
+/* ====== SOCIAL ICONS ====== */
+.social-icons {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.social-icons img {
+  height: 38px;
+  margin: 0 8px;
+  transition: transform 0.3s ease;
+}
+
+.social-icons img:hover {
+  transform: scale(1.1);
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 768px) {
+  .buletin-section {
+    padding: 50px 20px;
+  }
+
+  .buletin-content {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .buletin-column {
+    text-align: center;
+  }
+
+  .buletin-column ul {
+    list-style: none;
+    padding: 0;
+  }
+}
+
+</style>
+</head>
+
+<body>
+  </style>
+</head>
+<body>
+
+  <!-- Header + Nav -->
+  <header>
+    <div class="logo">
+      <img src="https://i.ibb.co.com/fVnCXwBv/IMG-20250822-WA0066.jpg" alt=" "/>
+      <h1>Dinas Pariwisata</h1>
+    </div>
+
+    <!-- Tombol Menu (garis 3) -->
+    <div class="menu-toggle" id="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <nav id="nav-menu">
+      <a href="IndexH.html">Home</a>
+
+      <!-- Dropdown Tentang --><div class="dropdown">
+        <button class="dropbtn">Tentang</button>
+        <div class="dropdown-content">
+          <a href="F.html">Profil</a>
+          <a href="VM.html">Visi Misi</a>
+          <a href="FAQ.html">Faq</a>
+        </div>
+      </div>
+      
+      <div class="dropdown">
+        <button class="dropbtn">Halaman</button>
+        <div class="dropdown-content">
+          <a href="E.html">Event</a>
+          <a href="D.html">Destinasi pilihan</a>
+          <a href="G.html">Galery</a>
+         
+        </div>
+      </div>
+
+      <a href="FA.html">Fasilitas</a>
+      
+     <div class="dropdown">
+        <button class="dropbtn">promosi</button>
+        <div class="dropdown-content">
+          <a href="HOT.html">Hotel</a>
+          <a href="CAF.html">cafe</a>
+         
+        </div>
+      </div>
+   
+      <a href="BER.html">Berita</a>
+      <a href="KONTAK.html">Kontak</a>
+    </nav>
+     
+  </header>
+
+  <!-- Banner -->
+  <div class="banner">
+    <img src="https://i.ibb.co.com/8n71KHLy/IMG-20250822-WA0062.jpg" alt="banner"/>
+    <h2>Galery</h2>
+  </div>
+
+  <!-- Destinasi Section -->
+  <section class="destinasi-section">
+    <h2>Destinasi Wisata</h2>
+    
+    <div class="destinasi-nav">
+      <a href="#" class="tab-btn active" data-tab="foto">Foto</a>
+      <a href="#" class="tab-btn" data-tab="video">Video</a>
+    </div>
+    
+    
+    
+    <!-- Foto Grid -->
+    <div class="destinasi-grid active" id="foto-grid">
+      <div class="card">
+        <a href="https://imgbb.com/">
+          <img src="https://i.ibb.co.com/1YDMDFf2/Screenshot-2025-08-26-12-06-52-48.png" alt="Museum">
+        </a>
+        <div>Museum</div>
+      </div>
+      <div class="card">
+        <a href="https://imgbb.com/">
+          <img src="https://i.ibb.co.com/TBCc3cMc/Screenshot-2025-08-26-11-56-27-63.png" alt="Kawah Ijen">
+        </a>
+        <div>Kawah Ijen</div>
+      </div>
+      <div class="card">
+        <a href="https://imgbb.com/">
+          <img src="https://i.ibb.co.com/9kxbHZgb/Screenshot-2025-08-26-11-57-23-97.png" alt="Pantai Kelingking">
+        </a>
+        <div>Pantai Kelingking</div>
+      </div>
+      <div class="card">
+        <a href="https://imgbb.com/">
+          <img src="https://i.ibb.co.com/jCQVfGK/Screenshot-2025-08-26-11-58-41-40.png" alt="Pantai Merah">
+        </a>
+        <div>Pantai Merah</div>
+      </div>
+      <div class="card">
+        <a href="https://imgbb.com/">
+          <img src="https://i.ibb.co.com/Ld6QwLCN/Screenshot-2025-08-26-11-59-59-48.png" alt="Pulau Komodo">
+        </a>
+        <div>Pulau Komodo</div>
+      </div>
+      <div class="card">
+        <a href="https://imgbb.com/">
+          <img src="https://i.ibb.co.com/d4Njp45G/Screenshot-2025-08-26-12-00-26-12.png" alt="Raja Ampat">
+        </a>
+        <div>Raja Ampat</div>
+      </div>
+
+      <div class="card">
+        <a href="https://imgbb.com/">
+          <img src="https://i.ibb.co.com/d4Njp45G/Screenshot-2025-08-26-12-00-26-12.png" alt="Raja Ampat">
+        </a>
+        <div>Raja Ampat</div>
+      </div>
+
+       <div class="card">
+        <a href="https://imgbb.com/">
+          <img src="https://i.ibb.co.com/d4Njp45G/Screenshot-2025-08-26-12-00-26-12.png" alt="Raja Ampat">
+        </a>
+        <div>Raja Ampat</div>
+      </div>
+
+
+      
+    </div>
+    
+    <!-- Video Grid -->
+    <div class="video-grid" id="video-grid">
+      <div class="video-card">
+        <video id="video1" controls>
+          <source src="C:\Users\user\OneDrive\Desktop\projectakhirwebsepti\video1.mp4" type="video/mp4">
+          Browser Anda tidak mendukung tag video.
+        </video>
+<div>Keindahan Danau Toba</div>
+        <div class="video-controls">
+          <button onclick="playPause('video1')">Play/Pause</button>
+          <button onclick="muteUnmute('video1')">Mute/Unmute</button>
+        </div>
+      </div>
+      <div class="video-card">
+        <video id="video2" controls>
+          <source src="C:\Users\user\OneDrive\Desktop\projectakhirwebsepti\vidio2.mp4" type="video/mp4">
+          Browser Anda tidak mendukung tag video.
+        </video>
+        <div>Festival Medan</div>
+        <div class="video-controls">
+          <button onclick="playPause('video2')">Play/Pause</button>
+          <button onclick="muteUnmute('video2')">Mute/Unmute</button>
+        </div>
+      </div>
+      <div class="video-card">
+        <video id="video3" controls>
+          <source src="C:\Users\user\OneDrive\Desktop\projectakhirwebsepti\vidio3.mp4" type="video/mp4">
+          Browser Anda tidak mendukung tag video.
+        </video>
+        <div>Kuliner Khas Medan</div>
+        <div class="video-controls">
+          <button onclick="playPause('video3')">Play/Pause</button>
+          <button onclick="muteUnmute('video3')">Mute/Unmute</button>
+        </div>
+      </div>
+      <div class="video-card">
+        <video id="video4" controls>
+          <source src="C:\Users\user\OneDrive\Desktop\projectakhirwebsepti\vidio4.mp4" type="video/mp4">
+          Browser Anda tidak mendukung tag video.
+        </video>
+        <div>Pariwisata Berkelanjutan</div>
+        <div class="video-controls">
+          <button onclick="playPause('video4')">Play/Pause</button>
+          <button onclick="muteUnmute('video4')">Mute/Unmute</button>
+        </div>
+      </div>
+      <div class="video-card">
+        <video id="video5" controls>
+          <source src="C:\Users\user\OneDrive\Desktop\projectakhirwebsepti\vidio5.mp4" type="video/mp4">
+          Browser Anda tidak mendukung tag video.
+        </video>
+        <div>Budaya Melayu</div>
+        <div class="video-controls">
+          <button onclick="playPause('video5')">Play/Pause</button>
+          <button onclick="muteUnmute('video5')">Mute/Unmute</button>
+        </div>
+      </div>
+      <div class="video-card">
+        <video id="video6" controls>
+          <source src="C:\Users\user\OneDrive\Desktop\projectakhirwebsepti\vidio6.mp4" type="video/mp4">
+          Browser Anda tidak mendukung tag video.
+        </video>
+        <div>Petualangan di Sumatera Utara</div>
+        <div class="video-controls">
+          <button onclick="playPause('video6')">Play/Pause</button>
+          <button onclick="muteUnmute('video6')">Mute/Unmute</button>
+        </div>
+      </div>
+       <div class="video-card">
+        <video id="video6" controls>
+          <source src="C:\Users\user\OneDrive\Desktop\projectakhirwebsepti\vidio7.mp4" type="video/mp4">
+          Browser Anda tidak mendukung tag video.
+        </video>
+        <div>Petualangan di Sumatera Utara</div>
+        <div class="video-controls">
+          <button onclick="playPause('video6')">Play/Pause</button>
+          <button onclick="muteUnmute('video6')">Mute/Unmute</button>
+        </div>
+      </div>
+       <div class="video-card">
+        <video id="video6" controls>
+          <source src="C:\Users\user\OneDrive\Desktop\projectakhirwebsepti\vidio8.mp4" type="video/mp4">
+          Browser Anda tidak mendukung tag video.
+        </video>
+        <div>Petualangan di Sumatera Utara</div>
+        <div class="video-controls">
+          <button onclick="playPause('video6')">Play/Pause</button>
+          <button onclick="muteUnmute('video6')">Mute/Unmute</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Buletin Section -->
+ <section class="buletin-section">
+  <h2>Buletin</h2>
+  <p>Terima kasih telah mengunjungi laman Dinas Pariwisata Kota Medan</p>
+  
+  <form class="buletin-form">
+    <input type="email" placeholder="Alamat Email" required>
+    <button type="submit">➤</button>
+  </form>
+
+  <div class="buletin-content">
+    <!-- Postingan Terbaru -->
+    <div class="buletin-column">
+      <h3>Postingan Terbaru</h3>
+      <ul>
+        <li><a href="#">Pesta Rakyat pada Karnaval Medan Penuh Warna 2025</a></li>
+        <li><a href="#">Pawai Night Carnival pada Event Medan Warna-warni Karnaval 2025</a></li>
+        <li><a href="#">Pesta Seni Medan</a></li>
+        <li><a href="#">Dirgahayu Kota Medan ke 435</a></li>
+      </ul>
+    </div>
+
+    <!-- Alamat -->
+    <div class="buletin-column">
+      <h3>Alamat</h3>
+      <p>Jl. Prof HM Yamin No.40, Gg. Buntu, Kec. Medan Tim., Kota Medan, Sumatera Utara 20232</p>
+      <p>📧 Pariwisata@Medan.go.id</p>
+      <p>📞 +62 812 8201 2063</p>
+
+      <div class="social-icons">
+        <a href="https://ibb.co.com/GQNBjbhy"><img src="https://i.ibb.co.com/tpFk5Wdg/Screenshot-2025-08-28-09-39-13-91.png" alt="Facebook"></a>
+        <a href="https://imgbb.com/"><img src="https://i.ibb.co.com/twK0Z5W3/Screenshot-2025-08-28-09-40-14-33.png" alt="YouTube"></a>
+        <a href="https://ibb.co.com/qLMnRFKR"><img src="https://i.ibb.co.com/spvPFJnF/Screenshot-2025-08-28-09-39-43-95.png" alt="Instagram"></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Dinas Pariwisata Kota Medan. All Rights Reserved.
+  </footer>
+
+  <!-- Script Menu -->
+  <script>
+    const menuToggle = document.getElementById("menu-toggle");
+    const navMenu = document.getElementById("nav-menu");
+
+    menuToggle.addEventListener("click", () => {
+      navMenu.classList.toggle("active");
+      menuToggle.classList.toggle("active");
+    });
+
+    // Tab functionality
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const fotoGrid = document.getElementById('foto-grid');
+    const videoGrid = document.getElementById('video-grid');
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Remove active class from all buttons
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        
+        // Add active class to clicked button
+        button.classList.add('active');
+        
+        // Toggle grid visibility based on which tab is clicked
+        if (button.getAttribute('data-tab') === 'foto') {
+          fotoGrid.style.display = 'grid';
+          videoGrid.classList.remove('active');
+        } else {
+          fotoGrid.style.display = 'none';
+          videoGrid.classList.add('active');
+        }
+      });
+    });
+
+    // Video control functions
+    function playPause(videoId) {
+      const video = document.getElementById(videoId);
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    }
+
+    function muteUnmute(videoId) {
+      const video = document.getElementById(videoId);
+      video.muted = !video.muted;
+    }
+  </script>
+
+</body>
+</html>
